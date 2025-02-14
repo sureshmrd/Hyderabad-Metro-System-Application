@@ -1,0 +1,140 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+nav {
+    background-color: #333;
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Announcements Banner */
+.announcements {
+    background: #ffcc00;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;  /* Added spacing below */
+}
+
+/* Metro Routes Section */
+.metro-routes {
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Different Colors for Different Metro Lines */
+.metro-line {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.red-line { background: #ff4c4c; color: white; }
+.blue-line { background: #4c4cff; color: white; }
+.green-line { background: #4caf50; color: white; }
+
+/* 🔹 Dark Mode Toggle - Now Positioned Separately */
+.dark-mode-toggle {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Toggle Button */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+}
+
+.switch input { display: none; }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #4caf50;
+}
+
+input:checked + .slider:before {
+    transform: translateX(14px);
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+    background-color: #1e1e1e;
+    color: black;
+}
+
+.dark-mode .metro-routes {
+    background: #333;
+    color: black;
+}
+
+.dark-mode .announcements {
+    background: #ff9900;
+    color: black;
+}
+
+/* Add spacing for announcements to avoid merging with toggle */
+body {
+    padding-top: 50px;
+}

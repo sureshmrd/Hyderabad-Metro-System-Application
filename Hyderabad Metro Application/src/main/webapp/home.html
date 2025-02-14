@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyderabad Metro System</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+
+	<nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="route.html">Find Route</a></li>
+        </ul>
+    </nav>
+
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle">
+        <label class="switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider round"></span>
+        </label>
+        <span>Dark Mode</span>
+    </div>
+
+    <!-- Announcements Section -->
+    <div class="announcements">
+        <marquee behavior="scroll" direction="left">
+            🚨 Metro services delayed between Ameerpet & MG Bus Station | 
+            🚆 Special Metro Services on Sunday for Marathon | 
+            📢 New Metro Line Expansion Work Starts Next Week
+        </marquee>
+    </div>
+
+    <!-- Metro Routes Visualization -->
+    <div class="metro-routes">
+        <h2>Hyderabad Metro Routes</h2>
+        <div id="metro-lines"></div>
+    </div>
+
+    <script src="home.js"></script>
+</body>
+</html>

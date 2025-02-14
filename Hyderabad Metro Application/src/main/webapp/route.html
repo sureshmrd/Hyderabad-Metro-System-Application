@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyderabad Metro Map</title>
+
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(128, 128, 64);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+        
+        .sidebar {
+            width: 30%;
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        #map-container {
+            width: 65%;
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar for Station Selection -->
+    <div class="sidebar">
+    	<h1 style="text-align:center">Find Route</h1>
+        <h2>Hyderabad Metro</h2>
+        <label for="source">Select Source Station:</label>
+        <select id="source">
+            <option value="">-- Select --</option>
+        </select>
+
+        <label for="destination">Select Destination Station:</label>
+        <select id="destination">
+            <option value="">-- Select --</option>
+        </select>
+
+        <button onclick="findShortestRoute()">Find Route</button>
+    </div>
+
+    <!-- Map Container -->
+    <div id="map-container"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        initializeMap();
+        fetchMetroStations();
+    });
+
+    let map;
+
+    function initializeMap() {
+        map = L.map('map-container').setView([17.385, 78.4867], 11); // Hyderabad Coordinates
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+    }
+
+    function fetchMetroStations() {
+        fetch("http://localhost:8082/Hyderabad_Metro_Application/metroStation")
+        .then(response => {
+            if (!response.ok) { 
+                throw new Error("HTTP status " + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Fetched Data:", data);
+            let sourceDropdown = document.getElementById("source");
+            let destinationDropdown = document.getElementById("destination");
+
+            sourceDropdown.innerHTML = '<option value="">-- Select --</option>';
+            destinationDropdown.innerHTML = '<option value="">-- Select --</option>';
+
+            data.forEach(station => {
+                let option = document.createElement("option");
+                option.value = station.station_id;
+                option.textContent = station.station_name;
+                
+                sourceDropdown.appendChild(option.cloneNode(true));
+                destinationDropdown.appendChild(option);
+
+                // Add Metro Stations as Markers on the Map
+                L.marker([station.latitude, station.longitude])
+                    .addTo(map)
+                    .bindPopup(`<b>${station.station_name}</b>`);
+            });
+
+            console.log("Dropdowns and markers populated successfully");
+        })
+        .catch(error => console.error("Error fetching metro stations:", error));
+    }
+
+    function findShortestRoute() {
+        let source = document.getElementById("source").value;
+        let destination = document.getElementById("destination").value;
+
+        if (!source || !destination) {
+            alert("Please select both source and destination.");
+            return;
+        }
+
+        console.log("Source:", source);
+        console.log("Destination:", destination);
+
+        fetch(`http://localhost:8082/Hyderabad_Metro_Application/FindRouteServlet?sourceStationId=${source}&destinationStationId=${destination}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+
+                if (!data.route || data.route.length === 0) {
+                    alert("No route found!");
+                    return;
+                }
+
+                // Store route in localStorage for use in JSP
+                localStorage.setItem("shortestRoute", JSON.stringify(data.route));
+
+                // Redirect to results page
+                window.location.href = `routeResult.jsp`;
+            })
+            .catch(error => console.error("Error fetching route:", error));
+    }
+    </script>
+</body>
+</html>
