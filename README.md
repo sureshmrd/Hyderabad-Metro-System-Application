@@ -20,7 +20,14 @@ The **Hyderabad Metro System Application** is a web-based project that provides 
 - 🔍 Users can select **source and destination stations** to find the **shortest travel route** between them.
 - 🗺️ **Map Visualization**: While selecting stations and viewing the shortest path, users will see a **real-time map representation** implemented using **OpenStreetMap and Leaflet.js**.
 
-## 🔄 Implementation Flow (Shortest Path Calculation using Dijkstra's Algorithm)
+## FrontEnd Design of the Application:
+![Screenshot 2025-03-03 164435](https://github.com/user-attachments/assets/e3dd64f3-bb1d-4a74-98b7-522b9ddd8445)
+
+![Screenshot (431)](https://github.com/user-attachments/assets/4b201365-a573-414c-9ed8-fe4b2bb70565)
+
+![Screenshot 2025-03-03 164635](https://github.com/user-attachments/assets/fcd0423d-ddca-4cce-bd0f-8cf404bdb757)
+
+#### 🔄 Implementation Flow (Shortest Path Calculation using Dijkstra's Algorithm)
 
 1. Users select the **source and destination stations** from a dropdown list of metro stations.
 2. The system applies **Dijkstra's Algorithm** to determine the shortest path based on the **distance between stations**.
@@ -30,7 +37,7 @@ The **Hyderabad Metro System Application** is a web-based project that provides 
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/hyderabad-metro-app.git
+   git clone https://github.com/sureshmrd/hyderabad-metro-app.git
    ```
 2. Open **Eclipse IDE** and import the project as a **Dynamic Web Project**.
 3. Configure **Tomcat Server** within Eclipse.
@@ -42,5 +49,3 @@ The **Hyderabad Metro System Application** is a web-based project that provides 
 - 📍 Providing nearby landmark suggestions for each metro station.
 - 📊 Adding fare calculation based on distance.
 
----
-**🔗 Connect & Contribute:** If you’d like to enhance this project, feel free to fork, contribute, and raise PRs!
